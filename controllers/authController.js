@@ -1,9 +1,9 @@
 const User = require('./../models/usersModel');
 const jwtMethods = require('./jwt/jwt_tokent')
+const catchAsync = require('../utils/catchAsync')
 
 
-
-exports.signup = async( req , res ,next)=>{
+exports.signup =  catchAsync(async( req , res ,next)=>{
     // const newUser = await User.create(req.body);
   const newUser = await User.create({
       name:req.body.name,
@@ -15,7 +15,7 @@ exports.signup = async( req , res ,next)=>{
   })
   jwtMethods.createSendToken(newUser, 201, res);
 
-}
+});
 
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -23,7 +23,7 @@ exports.login = catchAsync(async (req, res, next) => {
   
     // 1) Check if  email && password exist
     if (!email || !password) {
-      console.log('dfd');
+      
       return next(new AppError('Please provide email and password!', 400)); //
     }
   
