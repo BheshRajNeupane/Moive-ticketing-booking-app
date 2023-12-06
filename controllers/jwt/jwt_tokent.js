@@ -26,6 +26,7 @@ exports.createSendToken = (user, statusCode, res) => {
   
     //HIDING PASSWORD IN RESPONSE OUTPUT
     user.password = undefined;
+    
     res.status(statusCode).json({
       status: 'success',
       token,

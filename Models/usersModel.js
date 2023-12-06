@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     },
     role:{
         type:String,
-        enum:['general user' , 'admin'],
+        enum:['user' , 'admin'],
         default:'user'
     },
     password:{
@@ -53,13 +53,32 @@ const userSchema = new mongoose.Schema({
 
 })
 
-const User = mongoose.model('User' , userSchema);
+
+
+userSchema.pre('save',  async function(next){
+
+    if(!this.isModified('password')){return next();}  
+
+   this.password =  await bcrypt.hash(this.password , 12);
+     this.passwordConfirm = undefined;
+     next();
+  
+  })  
+  
+  
+  userSchema.pre('save', function(next){
+    if(!this.isModified('password')||this.isNew) return next();
+   this.passwordChangedAt = Date.now() - 1000;
+    next();
+  })
+
+
 
 // checking passwrod
 userSchema.methods.correctPassword =  async function(candidatePassword , userPassword){
-
     return await bcrypt.compare(candidatePassword, userPassword);
     };
+
 
 
 //passWord Change or not after token issued
@@ -84,5 +103,7 @@ this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 
 return resetToken;
 }
+
+const User = mongoose.model('User' , userSchema);
 
 module.exports = User;

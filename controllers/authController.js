@@ -1,5 +1,7 @@
 const User = require('./../models/usersModel');
+const { promisify } = require('util');
 const jwtMethods = require('./jwt/jwt_tokent')
+const AppError = require('./../utils/appError');
 const catchAsync = require('../utils/catchAsync')
 
 
@@ -13,6 +15,7 @@ exports.signup =  catchAsync(async( req , res ,next)=>{
       passwordChangedAt:req.body.passwordChangedAt,
       role: req.body.role
   })
+ 
   jwtMethods.createSendToken(newUser, 201, res);
 
 });
@@ -29,7 +32,7 @@ exports.login = catchAsync(async (req, res, next) => {
   
     // 2 ) Check if user exist && password is  correct
     const user = await User.findOne({ email }).select('+password');
-  
+    
     if (!user || !(await user.correctPassword(password, user.password))) {
       return next(new AppError('Incorrect email or password!', 401));
     }
@@ -175,3 +178,18 @@ exports.login = catchAsync(async (req, res, next) => {
     // 4) Log user in , send JWT
     jwtMethods.createSendToken(user, 200, res);
   });
+
+
+// admin 
+  exports.restrictTo = (...roles) => {
+    return (req, res, next) => {
+      if (!roles.includes(req.user.role)) {
+        return next(
+          new AppError('You do not have permission to perform this action', 403)
+        );
+      }
+  
+      next();
+    };
+  };
+  
