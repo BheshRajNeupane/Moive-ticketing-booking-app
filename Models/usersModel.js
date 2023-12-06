@@ -60,7 +60,29 @@ userSchema.methods.correctPassword =  async function(candidatePassword , userPas
 
     return await bcrypt.compare(candidatePassword, userPassword);
     };
-    
 
+
+//passWord Change or not after token issued
+userSchema.methods.changedPasswordAfter = function(JWTTimestamp){
+    if(this.passwordChangedAt){ // if exists
+  
+  const changedTimestamp = parseInt(this.passwordChangedAt.getTime()/1000 , 10); ;
+
+  return   JWTTimestamp < changedTimestamp  // if changed retutn true
+    }
+    return false;
+};
+
+userSchema.methods.createPasswordResetToken = function(){
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  this.passwordResetToken = crypto
+  .createHash('sha256')
+  .update(resetToken)
+  .digest('hex');
+
+this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+return resetToken;
+}
 
 module.exports = User;
