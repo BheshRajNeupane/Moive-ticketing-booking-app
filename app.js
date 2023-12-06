@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const userRouter = require('./routes/usersRoutes');
 const morgan = require('morgan');
-
+const cookieParser = require('cookie-parser');
+const globalErrorHandler = require('./controllers/errorController');
 
 app.use((req, res, next)=>{
     console.log("testing..!!!!");
