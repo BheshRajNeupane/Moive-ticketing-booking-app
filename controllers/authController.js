@@ -6,8 +6,12 @@ const catchAsync = require('../utils/catchAsync')
 
 
 exports.signup =  catchAsync(async( req , res ,next)=>{
-    // const newUser = await User.create(req.body);
-  const newUser = await User.create({
+  
+  if( await User.findOne({ email: req.body.email})){
+    return next(new AppError('Already Exist ,Please sign up with new email', 403));
+  }
+  // const newUser = await User.create(req.body);
+    const newUser = await User.create({
       name:req.body.name,
       email:req.body.email,
       password:req.body.password,

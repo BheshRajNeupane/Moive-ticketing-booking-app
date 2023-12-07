@@ -1,0 +1,43 @@
+[
+    {
+        "title": "Dimag Kharab",
+        "director":" Nischal Basnet",
+        "casts": ["Dayahang Rai" ,  "Khagendra lamichhane" , "Swastima Khadka"],
+        "showTimes": "11:00 - 2:00",
+        "rRating": 4.5,
+        "Price": 300,
+        "script":"Nepali"
+    },
+
+    {
+        "title": "Fulbari",
+        "director":" Ram Babu Gurung",
+        "casts": ["Bipin Karki" ,  "Dayahang Rai" , "Priyanka Karki"],
+        "showTimes": "7:00 - 10:00",
+        "rRating": 4,
+        "Price": 300,
+        "script":"Nepali"
+    },
+
+    
+    {
+        "title": "Animal",
+        "director":"Sandeep Reddy Vanga",
+        "casts": ["Ranbir Kapoor" ,  "Bobby Deol" , "Rashmika Mahnadhar"],
+        "showTimes": "5:00 - 8:00",
+        "rRating": 4.8,
+        "Price": 300,
+        "script":"Hindi"
+    },
+
+    {
+        "title": "Oppenheimer",
+        "director":"Christopher  Nolan",
+        "casts": ["Cillian Murphy" ,  "Emily Blunt" , "Matt Damon"],
+        "showTimes": "11:00 - 2:00",
+        "rRating": 4.7,
+        "Price": 300,
+        "script":"English"
+    }
+
+]

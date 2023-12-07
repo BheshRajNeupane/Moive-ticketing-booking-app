@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const userRouter = require('./routes/usersRoutes');
+const movieRouter = require('./routes/ movieRoutes');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const globalErrorHandler = require('./controllers/errorController');
@@ -19,15 +20,16 @@ app.use(cookieParser())
 
 //Routes
 app.use('/api/users' ,userRouter);
+app.use('/api/movie' ,movieRouter)
 
 
 
 // Error Handaling
-// app.all( ' * ' , (req,res,next)=>{
-//     next( new AppError(`Can't find ${req.originalUrl} on this server!`,404));
-//    });
+app.all( ' * ' , (req,res,next)=>{
+    next( new AppError(`Can't find ${req.originalUrl} on this server!`,404));
+   });
 
  
-//  app.use(globalErrorHandler);
+ app.use(globalErrorHandler);
 
 module.exports = app;
