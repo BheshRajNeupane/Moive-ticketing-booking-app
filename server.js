@@ -11,7 +11,7 @@ const DataBase = process.env.DATABASE.replace('<PASSWORD>',process.env.DB_PASSWO
 
 mongoose
 .connect(DataBase,{
-    useNewUrlParser : true,
+  //  useNewUrlParser : true,
    // useNewUrlIndex : true,
     //useFindAndModify : false,
      useUnifiedTopology: true

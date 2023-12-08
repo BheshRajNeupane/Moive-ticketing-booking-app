@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const userRouter = require('./routes/usersRoutes');
 const movieRouter = require('./routes/movieRoutes');
+const bookingRouter = require('./routes/bookingRoutes');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const globalErrorHandler = require('./controllers/errorController');
@@ -21,6 +22,7 @@ app.use(cookieParser())
 //Routes
 app.use('/api/users' ,userRouter);
 app.use('/api/movie' ,movieRouter)
+app.use('/api/booking' ,bookingRouter)
 
 
 
