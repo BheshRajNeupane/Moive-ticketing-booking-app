@@ -12,31 +12,55 @@ let my_seat;
 
 // to check seat is booked or not
 exports.checkSeat = catchAsync(async(req, res, next)=>{
-      my_seat = req.body.seatNo
+      my_seat  =  req.body.my_seat
 
-     if(  my_seat > 10 ||  bookedSeat.includes(my_seat)) {
-        return next(AppError('Seat is already booked , please try for another seat' ,  404));
+
+     if(  my_seat > 10 ||  bookedSeats.includes(my_seat)  ) {
+        return next( new AppError('  please try for another seat' ,  404));
      }  
-     bookedSeat.push(my_seat);
+     bookedSeats.push(my_seat);
 
      next();
 })
 
 //to seat available seats numbers
-exports.vacentSeats = function Vacentseats(seat,bookedSeat ) {
-    vacentSeat = seat.filter(s => !bookedSeat.includes(s));
-        return vacentSeat
-  }
+exports.vacentSeats =  (async (req , res ,next)=>{ 
+    function Vacentseats( a , b) {
+       return a.filter(s => !b.includes(s))
+     };
+
+       res.status(201).json({
+        status:"success",
+        data :{
+           data:Vacentseats(seat ,bookedSeats)
+        }
+    })         
+  })
+
+
   
 // book seat and movie 
 exports.bookMovie = catchAsync( async(req, res, next)=>{
-    const user = req.user
-    const movie = await Movie.findById({id:req.params})
-    if(!user && !movie && !(movie.price === req.body.price)) {
-        return next(AppError('Something is wrong! , please try again', 404))
+ 
+    const currentUser = req.user
+    const Bmovie = await Movie.findById(req.params.id)
+    const price = req.body.price;
+    
+    if(!currentUser && !Bmovie && !(Bmovie.price === price)) {
+        return next( new AppError('Something is wrong! , please try again', 404))
     }
-    await Booking.create({user , movie , price,my_seat})
+    console.log(({user: currentUser._id ,  movie: Bmovie._id , price,my_seat}))
+    
+  const booking =  await Booking.create({user: currentUser._id ,  movie: Bmovie._id , price,my_seat})
+
+             res.status(201).json({
+        status:"success",
+        data :{
+           data: booking
+        }
+        })  
+      
 })
 
-
+// admin can see all booking
 exports.getAllBooking = codeFactory.getAll(Booking)

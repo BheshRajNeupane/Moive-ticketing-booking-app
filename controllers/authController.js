@@ -111,13 +111,13 @@ exports.login = catchAsync(async (req, res, next) => {
   
     // ------3. Send it(token) to user's email-----
     /*
-
+       ##################
     */
     try {
      
       res.status(200).json({
         status: 'success',
-        message: 'Token sent to email!',
+        message: 'Token sent to email / For testing :  you can providen token by simply login    !',
       });
     } catch (err) {
 
@@ -194,7 +194,6 @@ exports.login = catchAsync(async (req, res, next) => {
           new AppError('You do not have permission to perform this action', 403)
         );
       }
-  
       next();
     };
   };

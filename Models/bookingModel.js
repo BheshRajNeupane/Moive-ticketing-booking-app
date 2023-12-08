@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const bookingSchema = new mongoose.Schema({
- mpvie:{
+ movie:{
      type:mongoose.Schema.ObjectId,
      ref:'Movie',
      required:[true , 'Booking must belong to a Movie!']

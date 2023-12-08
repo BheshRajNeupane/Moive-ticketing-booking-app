@@ -1,7 +1,8 @@
-// Global Error Handaling
+// Global Error Handaling    
 
 const AppError = require('./../utils/appError');
 
+//handleCastErrorDB
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path} : ${err.value} .`;
   return new AppError(message, 400);
@@ -15,7 +16,7 @@ const handleDublicateFieldsDB = (err) => {
 };
 
 const handleValidationErrorDB = (err) => {
-  //
+  
   const errors = Object.values(err.errors).map((el) => el.message);
   const message = `Invalid input data.${errors.join('. ')}`;
   return new AppError(message, 400);
