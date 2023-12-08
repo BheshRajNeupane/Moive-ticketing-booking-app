@@ -1,6 +1,7 @@
 const User = require('./../models/usersModel');
 const { promisify } = require('util');
 const jwtMethods = require('./jwt/jwt_tokent')
+const jwt = require('jsonwebtoken')
 const AppError = require('./../utils/appError');
 const catchAsync = require('../utils/catchAsync')
 
@@ -69,6 +70,7 @@ exports.login = catchAsync(async (req, res, next) => {
   
     // 2) Verification Token
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET); 
+
     // 3) Check if user still exists (expires time)
     const currentUser = await User.findById(decoded.id);
     if (!currentUser) {
@@ -185,7 +187,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
 
 // admin 
-  exports.restrictTo = (...roles) => {
+  exports.restrictTo = (roles) => {
     return (req, res, next) => {
       if (!roles.includes(req.user.role)) {
         return next(

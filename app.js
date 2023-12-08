@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const userRouter = require('./routes/usersRoutes');
-const movieRouter = require('./routes/ movieRoutes');
+const movieRouter = require('./routes/movieRoutes');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const globalErrorHandler = require('./controllers/errorController');

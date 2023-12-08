@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const authController = require('./../controllers/authController');
 
+const userController = require('./../controllers/userController');
+
 
 
 router.post ('/signup',  authController.signup)
@@ -14,8 +16,9 @@ router.use(authController.protect)
 router.patch('/updateMyPassword', authController.updatePassword);
 
 
-// router.use(authController.restrictTo('admin'))
+router.use(authController.restrictTo('admin'))
 
+router.get('/allusers',userController.getAllusers)
 
 
 module.exports = router;

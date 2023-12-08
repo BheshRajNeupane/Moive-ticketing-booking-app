@@ -30,7 +30,7 @@ const movieSchema = new mongoose.Schema({
         type:Number,
          required:[true,'A movie must have a price']
     },
-    
+
     script:{
         type:String,
         enum:['English' , 'Nepali' , 'Hindi'],
@@ -40,6 +40,6 @@ const movieSchema = new mongoose.Schema({
 })
 
 
-const Movie = moongoose.model('Movie' , movieSchema);
+const Movie = mongoose.model('Movie' , movieSchema);
 
 module.exports = Movie;
