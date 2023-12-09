@@ -1,12 +1,12 @@
 **Installation** <br>
-  $ npm install
+  $ npm install <br>
 
-**Running the app**
-#development
-$ npm run start: dev
+**Running the app**<br>
+#development  <br>
+$ npm run start: dev <br>
 
-#production mode
-$ npm run start: prod
+#production mode  <br>
+$ npm run start: prod <br>
 
 **API link:** 
 https://documenter.getpostman.com/view/24028174/2s9YkgER8h
@@ -16,5 +16,5 @@ https://documenter.getpostman.com/view/24028174/2s9YkgER8h
 
 
 
-**TechStack**
+**TechStack** <br>
 Nodejs (Express) , MongoDB 
